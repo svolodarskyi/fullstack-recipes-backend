@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Recipes App
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of students app
+tags:
+  - name: Auth
+    description: Auth operations.
+servers:
+  - url: http://127.0.0.1:3000
+  - url: https://fullstack-recipes-backend-ssa1.onrender.com
+paths:
+  /auth/register:
+    post:
+      $ref: '../swagger/paths/auth/register.yaml'
+  /auth/login:
+    post:
+      $ref: '../swagger/paths/auth/login.yaml'
+  /auth/refresh:
+    post:
+      $ref: '../swagger/paths/auth/refresh.yaml'
+  /auth/logout:
+    post:
+      $ref: '../swagger/paths/auth/logout.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    Unauthorized:
+      $ref: '../swagger/components/responses/401.yaml'
+    Forbidden:
+      $ref: '../swagger/components/responses/403.yaml'
+    BadRequest:
+      $ref: '../swagger/components/responses/400.yaml'
+    NotFound:
+      $ref: '../swagger/components/responses/404.yaml'
+
+security:
+  - bearerAuth: []
