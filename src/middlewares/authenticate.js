@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
-import Session from '../models/auth/session.auth.js';
-import User from '../models/user.auth.js';
+import Session from '../db/models/auth/session.js';
+import User from '../db/models/auth/user.js';
 
 const authenticate = async (req, _res, next) => {
   try {
@@ -27,6 +27,7 @@ const authenticate = async (req, _res, next) => {
     }
 
     req.user = user;
+    req.session = session;
     next();
   } catch (error) {
     next(error);

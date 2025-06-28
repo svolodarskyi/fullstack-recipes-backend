@@ -8,6 +8,8 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { startLogs } from './utils/startLogs.js';
+
 const PORT = Number(getEnvVar('PORT', '3000'));
 
 export const startServer = () => {
@@ -40,8 +42,7 @@ export const startServer = () => {
   app.use(notFoundHandler);
 
   app.use(errorHandler);
-
   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    startLogs();
   });
 };
