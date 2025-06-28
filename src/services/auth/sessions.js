@@ -1,9 +1,9 @@
 import { randomBytes } from 'crypto';
 import createHttpError from 'http-errors';
-import Session from '../../db/models/auth/session.auth.js';
+import Session from '../../db/models/auth/session.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../../constants/index.js';
 
-export const refreshTokens = async (sessionId, refreshToken) => {
+export const refreshUserSession = async (sessionId, refreshToken) => {
   const session = await Session.findById(sessionId);
 
   if (!session) {

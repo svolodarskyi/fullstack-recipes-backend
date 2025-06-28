@@ -1,4 +1,4 @@
-import { refreshTokens } from '../../services/auth/tokens.auth.js';
+import { refreshUserSession } from '../../services/auth/sessions.js';
 import { ONE_DAY } from '../../constants/index.js';
 
 const setupSession = (res, session) => {
@@ -13,7 +13,7 @@ const setupSession = (res, session) => {
 };
 
 export const refreshUserSessionController = async (req, res) => {
-  const session = await refreshTokens(
+  const session = await refreshUserSession(
     req.cookies.sessionId,
     req.cookies.refreshToken,
   );

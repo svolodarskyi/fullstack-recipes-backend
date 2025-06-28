@@ -1,4 +1,4 @@
-import Session from '../../db/models/auth/session.auth.js';
+import Session from '../../db/models/auth/session.js';
 import createHttpError from 'http-errors';
 
 export const logoutUser = async (sessionId) => {

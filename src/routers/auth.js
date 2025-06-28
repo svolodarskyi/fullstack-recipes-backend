@@ -3,10 +3,10 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { registerSchema, loginSchema } from '../validation/auth.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
-import { registerUserController } from '../controllers/auth/register.auth.js';
-import { loginUserController } from '../controllers/auth/login.auth.js';
-import { logoutUserController } from '../controllers/auth/logout.auth.js';
-import { refreshUserSessionController } from '../controllers/auth/refresh.auth.js';
+import { registerUserController } from '../controllers/auth/register.js';
+import { loginUserController } from '../controllers/auth/login.js';
+import { logoutUserController } from '../controllers/auth/logout.js';
+import { refreshUserSessionController } from '../controllers/auth/refresh.js';
 
 const authRouter = Router();
 
