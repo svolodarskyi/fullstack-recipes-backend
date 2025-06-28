@@ -40,7 +40,6 @@ ${chalk.green('📟 MongoDB:')}    ${mongoStatus} (${db})
 ${chalk.green('🕒 Started at:')} ${chalk.greenBright(
     new Date().toLocaleString(),
   )}
-${chalk.green('🔐 Auth API:')}   ${chalk.cyan('/api/auth')}
 `;
 
   console.log(
@@ -49,7 +48,7 @@ ${chalk.green('🔐 Auth API:')}   ${chalk.cyan('/api/auth')}
       margin: 1,
       borderColor: 'cyan',
       borderStyle: 'round',
-      title: '🍳 Team Fullstack Recipes',
+      title: '🍳 Team 2 Fullstack Recipes',
       titleAlignment: 'center',
     }),
   );
