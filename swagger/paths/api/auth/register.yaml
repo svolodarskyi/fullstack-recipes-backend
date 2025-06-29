@@ -1,5 +1,5 @@
-summary: Login a user
-operationId: loginUser
+summary: Register a new user
+operationId: registerUser
 tags:
   - Auth
 requestBody:
@@ -15,19 +15,23 @@ requestBody:
           password:
             type: string
             example: 'password123'
+          name:
+            type: string
+            example: 'Full Name'
         required:
           - email
           - password
+          - name
 responses:
-  200:
-    description: Successful login
+  201:
+    description: User created
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/LoginResponseSchema.yaml'
+          $ref: '../../../components/schemas/RegistrationResponseSchema.yaml'
   400:
-    $ref: ../../components/responses/400.yaml
-  401:
-    $ref: ../../components/responses/401.yaml
+    $ref: '../../../components/responses/400.yaml'
+  409:
+    $ref: '../../../components/responses/409.yaml'
   500:
-    $ref: ../../components/responses/500.yaml
+    $ref: ../../../components/responses/500.yaml

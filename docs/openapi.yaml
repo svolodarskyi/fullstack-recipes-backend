@@ -13,18 +13,18 @@ servers:
   - url: http://127.0.0.1:3000
   - url: https://fullstack-recipes-backend-ssa1.onrender.com
 paths:
-  /auth/register:
+  /api/auth/register:
     post:
-      $ref: '../swagger/paths/auth/register.yaml'
-  /auth/login:
+      $ref: '../swagger/paths/api/auth/register.yaml'
+  /api/auth/login:
     post:
-      $ref: '../swagger/paths/auth/login.yaml'
-  /auth/refresh:
+      $ref: '../swagger/paths/api/auth/login.yaml'
+  /api/auth/refresh:
     post:
-      $ref: '../swagger/paths/auth/refresh.yaml'
-  /auth/logout:
+      $ref: '../swagger/paths/api/auth/refresh.yaml'
+  /api/auth/logout:
     post:
-      $ref: '../swagger/paths/auth/logout.yaml'
+      $ref: '../swagger/paths/api/auth/logout.yaml'
 components:
   securitySchemes:
     bearerAuth:

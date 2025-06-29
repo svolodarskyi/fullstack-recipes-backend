@@ -15,7 +15,7 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/LoginResponseSchema.yaml'
+          $ref: '../../../components/schemas/LoginResponseSchema.yaml'
         example:
           status: 200
           message: Successfully refreshed a session!
@@ -27,7 +27,7 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/ErrorResponseSchema.yaml'
+          $ref: '../../../components/schemas/ErrorResponseSchema.yaml'
         example:
           status: 400
           message: 'Invalid refresh token'
@@ -38,10 +38,10 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/ErrorResponseSchema.yaml'
+          $ref: '../../../components/schemas/ErrorResponseSchema.yaml'
         example:
           status: 401
           message: 'Something went wrong'
           data: 'Refresh token is invalid or expired'
   500:
-    $ref: ../../components/responses/500.yaml
+    $ref: ../../../components/responses/500.yaml
