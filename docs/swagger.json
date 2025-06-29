@@ -29,7 +29,7 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
         "summary": "Register a new user",
         "operationId": "registerUser",
@@ -88,7 +88,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
         "summary": "Login a user",
         "operationId": "loginUser",
@@ -142,7 +142,7 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/api/auth/refresh": {
       "post": {
         "summary": "Refresh the access token",
         "operationId": "refreshToken",
@@ -214,7 +214,7 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "summary": "Log out the user",
         "operationId": "logoutUser",
