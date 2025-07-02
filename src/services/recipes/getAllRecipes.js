@@ -1,19 +1,39 @@
-import Recipes from "../../db/models/recipe.js";
+import Recipe from "../../db/models/recipe.js";
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
 export const getAllRecipes = async ({
     page = 1,
     perPage = 12,
+    filter = {},
+
 }) => {
 const limit = perPage;
     const skip = (page - 1) * perPage;
 
-    const recipesQuery = Recipes.find();
-    const recipesCount = await Recipes.find().merge(recipesQuery).countDocuments();
-    const recipes = await recipesQuery.skip(skip).limit(limit).exec();
+    const recipesQuery = Recipe.find();
+
+    if (filter.category) {
+        recipesQuery.where('category').equals(filter.category);
+    }
+    if (filter.ingredient) {
+        recipesQuery.where('ingredients.name').equals(filter.ingredient);
+    }
+
+    if (filter.query) {
+      recipesQuery.where('title', new RegExp(filter.query, 'i')); // пошук по частині назви
+    }
+
+    // const recipesCount = await Recipe.find().merge(recipesQuery).countDocuments();
+    // const recipes = await recipesQuery.skip(skip).limit(limit).exec();
+
+    const [recipesCount, recipes] = await Promise.all([
+        Recipe.find().merge(recipesQuery).countDocuments(),
+        recipesQuery.skip(skip).limit(limit).exec(),
+    ]);
+
     const paginationData = calculatePaginationData(recipesCount, perPage, page);
 
   return {
-    data: recipes,
+      data: recipes,
     ...paginationData,
   };
 };
