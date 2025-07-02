@@ -1,0 +1,14 @@
+get:
+  tags:
+    - Categories
+  summary: Get all recipe categories
+  operationId: getCategories
+  responses:
+    '200':
+      description: Successful response with a list of recipe categories
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/CategoryListResponse.yaml'
+    '500':
+      $ref: '../../components/responses/500.yaml'
