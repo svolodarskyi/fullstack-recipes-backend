@@ -26,10 +26,14 @@
     {
       "name": "Auth",
       "description": "Auth operations."
+    },
+    {
+      "name": "Users",
+      "description": "User operations."
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
         "summary": "Register a new user",
         "operationId": "registerUser",
@@ -88,7 +92,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
         "summary": "Login a user",
         "operationId": "loginUser",
@@ -142,7 +146,7 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/api/auth/refresh": {
       "post": {
         "summary": "Refresh the access token",
         "operationId": "refreshToken",
@@ -214,7 +218,7 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "summary": "Log out the user",
         "operationId": "logoutUser",
@@ -269,6 +273,94 @@
           "500": {
             "$ref": "#/components/responses/500"
           }
+        }
+      }
+    },
+    "/api/users/profile": {
+      "get": {
+        "summary": "Get current user profile",
+        "description": "Returns information about the currently authenticated user.",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Profile retrieved successfully!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "integer", "example": 200 },
+                    "message": { "type": "string", "example": "Profile retrieved successfully!" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": { "$ref": "#/components/schemas/UserSchema" }
+                      }
+                    }
+                  },
+                  "required": ["status", "message", "data"]
+                },
+                "example": {
+                  "status": 200,
+                  "message": "Profile retrieved successfully!",
+                  "data": {
+                    "user": {
+                      "_id": "60c72b2f9b1e8e001c8e4b8a",
+                      "name": "John Doe",
+                      "email": "john@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/401" },
+          "500": { "$ref": "#/components/responses/500" }
+        }
+      }
+    },
+    "/api/users/session": {
+      "get": {
+        "summary": "Get current session info",
+        "description": "Returns information about the current user session.",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Session retrieved successfully!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "integer", "example": 200 },
+                    "message": { "type": "string", "example": "Session retrieved successfully!" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "session": { "$ref": "#/components/schemas/SessionSchema" }
+                      }
+                    }
+                  },
+                  "required": ["status", "message", "data"]
+                },
+                "example": {
+                  "status": 200,
+                  "message": "Session retrieved successfully!",
+                  "data": {
+                    "session": {
+                      "id": "60c72b2f9b1e8e001c8e4b8b",
+                      "accessTokenValidUntil": "2024-07-01T12:00:00.000Z",
+                      "refreshTokenValidUntil": "2024-07-08T12:00:00.000Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "$ref": "#/components/responses/401" },
+          "500": { "$ref": "#/components/responses/500" }
         }
       }
     }
@@ -492,6 +584,24 @@
           "message",
           "data"
         ]
+      },
+      "UserSchema": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "example": "60c72b2f9b1e8e001c8e4b8a" },
+          "name": { "type": "string", "example": "John Doe" },
+          "email": { "type": "string", "example": "john@example.com" }
+        },
+        "required": ["_id", "name", "email"]
+      },
+      "SessionSchema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "60c72b2f9b1e8e001c8e4b8b" },
+          "accessTokenValidUntil": { "type": "string", "format": "date-time", "example": "2024-07-01T12:00:00.000Z" },
+          "refreshTokenValidUntil": { "type": "string", "format": "date-time", "example": "2024-07-08T12:00:00.000Z" }
+        },
+        "required": ["id", "accessTokenValidUntil", "refreshTokenValidUntil"]
       }
     }
   }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import authenticate from '../middlewares/authenticate.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const usersRouter = Router();
 

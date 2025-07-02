@@ -2,7 +2,7 @@ import createHttpError from 'http-errors';
 import Session from '../db/models/auth/session.js';
 import User from '../db/models/auth/user.js';
 
-const authenticate = async (req, _res, next) => {
+export const authenticate = async (req, _res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -33,5 +33,3 @@ const authenticate = async (req, _res, next) => {
     next(error);
   }
 };
-
-export default authenticate;

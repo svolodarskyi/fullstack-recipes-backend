@@ -37,5 +37,6 @@ export const refreshUserSession = async (sessionId, refreshToken) => {
     accessToken: updatedSession.accessToken,
     refreshToken: updatedSession.refreshToken,
     sessionId: updatedSession._id,
+    userId: updatedSession.userId,
   };
 };
