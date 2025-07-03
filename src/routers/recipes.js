@@ -8,7 +8,8 @@ import { getRecipes } from '../controllers/recipes/getRecipes.js';
 import { getRecipeById } from '../controllers/recipes/getRecipeById.js';
 import { updateRecipe } from '../controllers/recipes/updateRecipe.js';
 import { deleteRecipe } from '../controllers/recipes/deleteRecipe.js';
-
+import { ctrlWrapper } from "../utils/ctrlWrapper.js";
+import { getAllRecipesController, getPublicRecipeByIdController } from "../controllers/recipes/getAllRecipesController.js";
 const router = Router();
 
 function parseIngredients(req, res, next) {
@@ -21,9 +22,10 @@ function parseIngredients(req, res, next) {
   }
   next();
 }
-
-router.get('/', getRecipes);
-router.get('/:id', getRecipeById);
+router.get('/', ctrlWrapper(getAllRecipesController));
+router.get('/:id', ctrlWrapper(getPublicRecipeByIdController)); 
+router.get('/', authenticate, getRecipes);
+router.get('/:id', authenticate, getRecipeById);
 
 router.post(
   '/',
