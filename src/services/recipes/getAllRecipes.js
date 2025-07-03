@@ -10,16 +10,16 @@ const limit = perPage;
     const skip = (page - 1) * perPage;
 
     const recipesQuery = Recipe.find();
-
+    
     if (filter.category) {
         recipesQuery.where('category').equals(filter.category);
     }
     if (filter.ingredient) {
-        recipesQuery.where('ingredients.name').equals(filter.ingredient);
+        recipesQuery.where('ingredients.id').equals(filter.ingredient);
     }
 
-    if (filter.query) {
-      recipesQuery.where('title', new RegExp(filter.query, 'i')); // пошук по частині назви
+    if (filter.title) {
+      recipesQuery.where('title', filter.title); 
     }
 
     // const recipesCount = await Recipe.find().merge(recipesQuery).countDocuments();

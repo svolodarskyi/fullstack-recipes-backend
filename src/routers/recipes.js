@@ -23,7 +23,7 @@ function parseIngredients(req, res, next) {
   next();
 }
 router.get('/', ctrlWrapper(getAllRecipesController));
-router.get('/:id', ctrlWrapper(getPublicRecipeByIdController)); 
+router.get('/:recipeId', ctrlWrapper(getPublicRecipeByIdController)); 
 router.get('/', authenticate, getRecipes);
 router.get('/:id', authenticate, getRecipeById);
 

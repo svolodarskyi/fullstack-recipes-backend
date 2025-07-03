@@ -6,6 +6,7 @@ const ingredientInRecipeSchema = new mongoose.Schema({
     ref: 'Ingredient',
     required: true,
   },
+  
   measure: {
     type: String,
     required: true,

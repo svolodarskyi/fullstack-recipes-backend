@@ -13,7 +13,7 @@ const parseTitle = (title) => {
     if (!isString) return;
     const trimmed = title.trim();
     if (!trimmed) return;
-    return new RegExp(trimmed, 'i');
+    return new RegExp(trimmed, 'i'); // пошук по частині назви
 };
 
 export const parseFilterParams = (query) => {
