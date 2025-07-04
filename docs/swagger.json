@@ -485,26 +485,6 @@
           },
           "404": {
             "$ref": "#/components/responses/401"
-    "/categories": {
-      "get": {
-        "tags": [
-          "Categories"
-        ],
-        "summary": "Get all recipe categories",
-        "operationId": "getCategories",
-        "responses": {
-          "200": {
-            "description": "Successful response with a list of recipe categories",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CategoryListResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -571,27 +551,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-    "/ingredients": {
-      "get": {
-        "tags": [
-          "Ingredients"
-        ],
-        "summary": "Get all ingredients",
-        "operationId": "getIngredients",
-        "description": "Retrieve a list of all available ingredients",
-        "responses": {
-          "200": {
-            "description": "Successful response with a list of ingredients",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IngredientListResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -977,35 +936,6 @@
             "format": "date-time",
             "example": "2023-12-03T10:46:32.250Z"
           }
-      },
-      "IngredientListResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "example": "60f7ad8b1234567890abcdef"
-            },
-            "name": {
-              "type": "string",
-              "example": "Tomato"
-            },
-            "desc": {
-              "type": "string",
-              "example": "Fresh and juicy tomatoes"
-            },
-            "img": {
-              "type": "string",
-              "example": "https://example.com/images/tomato.png"
-            }
-          },
-          "required": [
-            "_id",
-            "name",
-            "img"
-          ]
-
         }
       }
     }
