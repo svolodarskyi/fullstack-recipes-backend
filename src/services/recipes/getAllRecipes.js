@@ -1,4 +1,5 @@
 import Recipe from "../../db/models/recipe.js";
+
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
 export const getAllRecipes = async ({
     page = 1,
@@ -14,10 +15,9 @@ const limit = perPage;
     if (filter.category) {
         recipesQuery.where('category').equals(filter.category);
     }
-    if (filter.ingredient) {
-        recipesQuery.where('ingredients.id').equals(filter.ingredient);
-    }
-
+  if (filter.ingredient) {
+    recipesQuery.where('ingredients.id').equals(filter.ingredient);
+  }
     if (filter.title) {
       recipesQuery.where('title', filter.title); 
     }

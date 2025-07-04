@@ -26,10 +26,6 @@
     {
       "name": "Auth",
       "description": "Auth operations."
-    },
-    {
-      "name": "Users",
-      "description": "User operations."
     }
   ],
   "paths": {
@@ -276,91 +272,275 @@
         }
       }
     },
-    "/api/users/profile": {
+    "/categories": {
       "get": {
-        "summary": "Get current user profile",
-        "description": "Returns information about the currently authenticated user.",
-        "tags": ["Users"],
-        "security": [{ "bearerAuth": [] }],
-        "responses": {
-          "200": {
-            "description": "Profile retrieved successfully!",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": { "type": "integer", "example": 200 },
-                    "message": { "type": "string", "example": "Profile retrieved successfully!" },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": { "$ref": "#/components/schemas/UserSchema" }
-                      }
-                    }
-                  },
-                  "required": ["status", "message", "data"]
-                },
-                "example": {
-                  "status": 200,
-                  "message": "Profile retrieved successfully!",
-                  "data": {
-                    "user": {
-                      "_id": "60c72b2f9b1e8e001c8e4b8a",
-                      "name": "John Doe",
-                      "email": "john@example.com"
-                    }
+        "get": {
+          "tags": [
+            "Categories"
+          ],
+          "summary": "Get all recipe categories",
+          "operationId": "getCategories",
+          "responses": {
+            "200": {
+              "description": "Successful response with a list of recipe categories",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../../components/schemas/CategoryListResponse.yaml"
                   }
                 }
               }
+            },
+            "500": {
+              "$ref": "../../components/responses/500.yaml"
             }
-          },
-          "401": { "$ref": "#/components/responses/401" },
-          "500": { "$ref": "#/components/responses/500" }
+          }
         }
       }
     },
-    "/api/users/session": {
+    "/ingredients": {
       "get": {
-        "summary": "Get current session info",
-        "description": "Returns information about the current user session.",
-        "tags": ["Users"],
-        "security": [{ "bearerAuth": [] }],
+        "get": {
+          "tags": [
+            "Ingredients"
+          ],
+          "summary": "Get all ingredients",
+          "operationId": "getIngredients",
+          "description": "Retrieve a list of all available ingredients",
+          "responses": {
+            "200": {
+              "description": "Successful response with a list of ingredients",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "../../components/schemas/IngredientListResponse.yaml"
+                  }
+                }
+              }
+            },
+            "500": {
+              "$ref": "../../components/responses/500.yaml"
+            }
+          }
+        }
+      }
+    },
+    "/api/recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get list of recipes",
+        "operationId": "getRecipes",
+        "description": "Get list of recipes with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 12
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string",
+              "example": "Beef"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ingredient",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "measure"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "640c2dd963a319ea671e366c"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "4-5 pound"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string",
+              "example": "Beef Brisket Pot Roast"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Session retrieved successfully!",
+            "description": "Successfully found recipes!",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
-                    "status": { "type": "integer", "example": 200 },
-                    "message": { "type": "string", "example": "Session retrieved successfully!" },
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found recipes!"
+                    },
                     "data": {
                       "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
                       "properties": {
-                        "session": { "$ref": "#/components/schemas/SessionSchema" }
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/recipe"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 12
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
                       }
-                    }
-                  },
-                  "required": ["status", "message", "data"]
-                },
-                "example": {
-                  "status": 200,
-                  "message": "Session retrieved successfully!",
-                  "data": {
-                    "session": {
-                      "id": "60c72b2f9b1e8e001c8e4b8b",
-                      "accessTokenValidUntil": "2024-07-01T12:00:00.000Z",
-                      "refreshTokenValidUntil": "2024-07-08T12:00:00.000Z"
                     }
                   }
                 }
               }
             }
           },
-          "401": { "$ref": "#/components/responses/401" },
-          "500": { "$ref": "#/components/responses/500" }
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get recipe by id",
+        "operationId": "getRecipe",
+        "description": "Get recipe by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6462a8f74c3d0ddd28897fd4"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get recipe by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found recipe with id 6462a8f74c3d0ddd28897fd4!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/recipe"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
         }
       }
     }
@@ -585,23 +765,115 @@
           "data"
         ]
       },
-      "UserSchema": {
+      "recipe": {
         "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "category",
+          "owner",
+          "instructions",
+          "description",
+          "time",
+          "ingredients",
+          "createdAt",
+          "updatedAt"
+        ],
         "properties": {
-          "_id": { "type": "string", "example": "60c72b2f9b1e8e001c8e4b8a" },
-          "name": { "type": "string", "example": "John Doe" },
-          "email": { "type": "string", "example": "john@example.com" }
-        },
-        "required": ["_id", "name", "email"]
-      },
-      "SessionSchema": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "example": "60c72b2f9b1e8e001c8e4b8b" },
-          "accessTokenValidUntil": { "type": "string", "format": "date-time", "example": "2024-07-01T12:00:00.000Z" },
-          "refreshTokenValidUntil": { "type": "string", "format": "date-time", "example": "2024-07-08T12:00:00.000Z" }
-        },
-        "required": ["id", "accessTokenValidUntil", "refreshTokenValidUntil"]
+          "_id": {
+            "description": "Recipe's id",
+            "type": "string",
+            "example": "6462a8f74c3d0ddd28897fd4"
+          },
+          "title": {
+            "description": "Recipe's title",
+            "type": "string",
+            "example": "Beef Brisket Pot Roast"
+          },
+          "category": {
+            "description": "Recipe's category",
+            "type": "string",
+            "example": "Beef"
+          },
+          "owner": {
+            "description": "ID of the user who created the recipe",
+            "type": "string",
+            "example": "64c8d958249fae54bae90bb9"
+          },
+          "area": {
+            "description": "Cuisine or cultural origin",
+            "type": "string",
+            "example": "American"
+          },
+          "instructions": {
+            "description": "Full cooking instructions",
+            "type": "string",
+            "example": "On one side of the brisket there should be a layer of fat, which you want. If there are any large chunks of fat, cut them off and discard them. Large pieces of fat will not be able to render out completely. Using a sharp knife, score the fat in parallel lines, about 3/4-inch apart. Slice through the fat, not the beef. Repeat in the opposite direction to make a cross-hatch pattern. Cover the pot, place the pot in the 300°F oven and cook for 3 hours. Carefully flip the brisket every hour so it cooks evenly..."
+          },
+          "description": {
+            "description": "Recipe's description",
+            "type": "string",
+            "example": "A comforting American dish of beef brisket slow-cooked with root veget…"
+          },
+          "thumb": {
+            "description": "Full-size recipe image (optional)",
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/images/full/english-breakfast.jpg",
+            "nullable": true
+          },
+          "thumbPublicId": {
+            "description": "Cloudinary public ID for image (optional)",
+            "type": "string",
+            "example": "recipe/american-breakfast-xyz123",
+            "nullable": true
+          },
+          "time": {
+            "description": "Time required to prepare the dish, in minutes",
+            "type": "integer",
+            "example": 51
+          },
+          "ingredients": {
+            "description": "List of ingredients used in the recipe",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "measure"
+              ],
+              "properties": {
+                "id": {
+                  "description": "ID of the ingredient (referenced from Ingredient model)",
+                  "type": "string",
+                  "example": "640c2dd963a319ea671e366c"
+                },
+                "measure": {
+                  "description": "Quantity or measure of the ingredient",
+                  "type": "string",
+                  "example": "4-5 pound"
+                }
+              }
+            }
+          },
+          "calories": {
+            "description": "Recipe's calories",
+            "type": "integer",
+            "example": 450
+          },
+          "createdAt": {
+            "description": "Timestamp when the recipe was created",
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-03-11T19:25:33.243Z"
+          },
+          "updatedAt": {
+            "description": "Timestamp when the recipe was last updated",
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-12-03T10:46:32.250Z"
+          }
+        }
       }
     }
   }
