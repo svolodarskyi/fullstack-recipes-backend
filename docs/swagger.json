@@ -284,6 +284,207 @@
         }
       }
     },
+    "/api/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get all recipe categories",
+        "operationId": "getCategories",
+        "responses": {
+          "200": {
+            "description": "Successful response with a list of recipe categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/ingredients": {
+      "get": {
+        "tags": [
+          "Ingredients"
+        ],
+        "summary": "Get all ingredients",
+        "operationId": "getIngredients",
+        "description": "Retrieve a list of all available ingredients",
+        "responses": {
+          "200": {
+            "description": "Successful response with a list of ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngredientListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get list of recipes",
+        "operationId": "getRecipes",
+        "description": "Get list of recipes with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 12
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string",
+              "example": "Beef"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ingredient",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "measure"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "640c2dd963a319ea671e366c"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "4-5 pound"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string",
+              "example": "Beef Brisket Pot Roast"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found recipes!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found recipes!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/recipe"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 12
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/401"
     "/categories": {
       "get": {
         "tags": [
@@ -311,6 +512,65 @@
         }
       }
     },
+    "/api/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get recipe by id",
+        "operationId": "getRecipe",
+        "description": "Get recipe by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6462a8f74c3d0ddd28897fd4"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get recipe by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found recipe with id 6462a8f74c3d0ddd28897fd4!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/recipe"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
     "/ingredients": {
       "get": {
         "tags": [
@@ -607,6 +867,145 @@
             "name",
             "img"
           ]
+        }
+      },
+      "recipe": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "category",
+          "owner",
+          "instructions",
+          "description",
+          "time",
+          "ingredients",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "_id": {
+            "description": "Recipe's id",
+            "type": "string",
+            "example": "6462a8f74c3d0ddd28897fd4"
+          },
+          "title": {
+            "description": "Recipe's title",
+            "type": "string",
+            "example": "Beef Brisket Pot Roast"
+          },
+          "category": {
+            "description": "Recipe's category",
+            "type": "string",
+            "example": "Beef"
+          },
+          "owner": {
+            "description": "ID of the user who created the recipe",
+            "type": "string",
+            "example": "64c8d958249fae54bae90bb9"
+          },
+          "area": {
+            "description": "Cuisine or cultural origin",
+            "type": "string",
+            "example": "American"
+          },
+          "instructions": {
+            "description": "Full cooking instructions",
+            "type": "string",
+            "example": "On one side of the brisket there should be a layer of fat, which you want. If there are any large chunks of fat, cut them off and discard them. Large pieces of fat will not be able to render out completely. Using a sharp knife, score the fat in parallel lines, about 3/4-inch apart. Slice through the fat, not the beef. Repeat in the opposite direction to make a cross-hatch pattern. Cover the pot, place the pot in the 300°F oven and cook for 3 hours. Carefully flip the brisket every hour so it cooks evenly..."
+          },
+          "description": {
+            "description": "Recipe's description",
+            "type": "string",
+            "example": "A comforting American dish of beef brisket slow-cooked with root veget…"
+          },
+          "thumb": {
+            "description": "Full-size recipe image (optional)",
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com/images/full/english-breakfast.jpg",
+            "nullable": true
+          },
+          "thumbPublicId": {
+            "description": "Cloudinary public ID for image (optional)",
+            "type": "string",
+            "example": "recipe/american-breakfast-xyz123",
+            "nullable": true
+          },
+          "time": {
+            "description": "Time required to prepare the dish, in minutes",
+            "type": "integer",
+            "example": 51
+          },
+          "ingredients": {
+            "description": "List of ingredients used in the recipe",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "measure"
+              ],
+              "properties": {
+                "id": {
+                  "description": "ID of the ingredient (referenced from Ingredient model)",
+                  "type": "string",
+                  "example": "640c2dd963a319ea671e366c"
+                },
+                "measure": {
+                  "description": "Quantity or measure of the ingredient",
+                  "type": "string",
+                  "example": "4-5 pound"
+                }
+              }
+            }
+          },
+          "calories": {
+            "description": "Recipe's calories",
+            "type": "integer",
+            "example": 450
+          },
+          "createdAt": {
+            "description": "Timestamp when the recipe was created",
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-03-11T19:25:33.243Z"
+          },
+          "updatedAt": {
+            "description": "Timestamp when the recipe was last updated",
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-12-03T10:46:32.250Z"
+          }
+      },
+      "IngredientListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "60f7ad8b1234567890abcdef"
+            },
+            "name": {
+              "type": "string",
+              "example": "Tomato"
+            },
+            "desc": {
+              "type": "string",
+              "example": "Fresh and juicy tomatoes"
+            },
+            "img": {
+              "type": "string",
+              "example": "https://example.com/images/tomato.png"
+            }
+          },
+          "required": [
+            "_id",
+            "name",
+            "img"
+          ]
+
         }
       }
     }

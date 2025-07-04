@@ -31,12 +31,18 @@ paths:
   /api/auth/logout:
     post:
       $ref: '../swagger/paths/api/auth/logout.yaml'
-  /categories:
+  /api/categories:
     get:
       $ref: '../swagger/paths/categories/get.yaml'
-  /ingredients:
+  /api/ingredients:
     get:
       $ref: '../swagger/paths/ingredients/get.yaml'
+  /api/recipes:
+    get:
+      $ref: '../swagger/paths/recipes/get.yaml'
+  /api/recipes/{id}:
+    get:
+      $ref: '../swagger/paths/recipes/{id}/get.yaml'
 components:
   securitySchemes:
     bearerAuth:
