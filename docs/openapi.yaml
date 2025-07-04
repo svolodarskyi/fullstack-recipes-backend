@@ -9,6 +9,12 @@ info:
 tags:
   - name: Auth
     description: Auth operations.
+  - name: Recipes
+    description: Recipes operations.
+  - name: Categories
+    description: Categories operations.
+  - name: Ingredients
+    description: Ingridients operations.
 servers:
   - url: http://127.0.0.1:3000
   - url: https://fullstack-recipes-backend-ssa1.onrender.com
@@ -25,10 +31,10 @@ paths:
   /api/auth/logout:
     post:
       $ref: '../swagger/paths/api/auth/logout.yaml'
-  /categories:
+  /api/categories:
     get:
       $ref: '../swagger/paths/categories/get.yaml'
-  /ingredients:
+  /api/ingredients:
     get:
       $ref: '../swagger/paths/ingredients/get.yaml'
   /api/recipes:
