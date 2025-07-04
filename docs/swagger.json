@@ -28,8 +28,16 @@
       "description": "Auth operations."
     },
     {
-      "name": "Users",
-      "description": "User operations."
+      "name": "Recipes",
+      "description": "Recipes operations."
+    },
+    {
+      "name": "Categories",
+      "description": "Categories operations."
+    },
+    {
+      "name": "Ingredients",
+      "description": "Ingridients operations."
     }
   ],
   "paths": {
@@ -276,91 +284,58 @@
         }
       }
     },
-    "/api/users/profile": {
+    "/categories": {
       "get": {
-        "summary": "Get current user profile",
-        "description": "Returns information about the currently authenticated user.",
-        "tags": ["Users"],
-        "security": [{ "bearerAuth": [] }],
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get all recipe categories",
+        "operationId": "getCategories",
         "responses": {
           "200": {
-            "description": "Profile retrieved successfully!",
+            "description": "Successful response with a list of recipe categories",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": { "type": "integer", "example": 200 },
-                    "message": { "type": "string", "example": "Profile retrieved successfully!" },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "user": { "$ref": "#/components/schemas/UserSchema" }
-                      }
-                    }
-                  },
-                  "required": ["status", "message", "data"]
-                },
-                "example": {
-                  "status": 200,
-                  "message": "Profile retrieved successfully!",
-                  "data": {
-                    "user": {
-                      "_id": "60c72b2f9b1e8e001c8e4b8a",
-                      "name": "John Doe",
-                      "email": "john@example.com"
-                    }
-                  }
+                  "$ref": "#/components/schemas/CategoryListResponse"
                 }
               }
             }
           },
-          "401": { "$ref": "#/components/responses/401" },
-          "500": { "$ref": "#/components/responses/500" }
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
         }
       }
     },
-    "/api/users/session": {
+    "/ingredients": {
       "get": {
-        "summary": "Get current session info",
-        "description": "Returns information about the current user session.",
-        "tags": ["Users"],
-        "security": [{ "bearerAuth": [] }],
+        "tags": [
+          "Ingredients"
+        ],
+        "summary": "Get all ingredients",
+        "operationId": "getIngredients",
+        "description": "Retrieve a list of all available ingredients",
         "responses": {
           "200": {
-            "description": "Session retrieved successfully!",
+            "description": "Successful response with a list of ingredients",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": { "type": "integer", "example": 200 },
-                    "message": { "type": "string", "example": "Session retrieved successfully!" },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "session": { "$ref": "#/components/schemas/SessionSchema" }
-                      }
-                    }
-                  },
-                  "required": ["status", "message", "data"]
-                },
-                "example": {
-                  "status": 200,
-                  "message": "Session retrieved successfully!",
-                  "data": {
-                    "session": {
-                      "id": "60c72b2f9b1e8e001c8e4b8b",
-                      "accessTokenValidUntil": "2024-07-01T12:00:00.000Z",
-                      "refreshTokenValidUntil": "2024-07-08T12:00:00.000Z"
-                    }
-                  }
+                  "$ref": "#/components/schemas/IngredientListResponse"
                 }
               }
             }
           },
-          "401": { "$ref": "#/components/responses/401" },
-          "500": { "$ref": "#/components/responses/500" }
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
         }
       }
     }
@@ -585,23 +560,54 @@
           "data"
         ]
       },
-      "UserSchema": {
-        "type": "object",
-        "properties": {
-          "_id": { "type": "string", "example": "60c72b2f9b1e8e001c8e4b8a" },
-          "name": { "type": "string", "example": "John Doe" },
-          "email": { "type": "string", "example": "john@example.com" }
-        },
-        "required": ["_id", "name", "email"]
+      "CategoryListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "60f7ad8b1234567890abcdef"
+            },
+            "name": {
+              "type": "string",
+              "example": "Breakfast"
+            }
+          },
+          "required": [
+            "_id",
+            "name"
+          ]
+        }
       },
-      "SessionSchema": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "example": "60c72b2f9b1e8e001c8e4b8b" },
-          "accessTokenValidUntil": { "type": "string", "format": "date-time", "example": "2024-07-01T12:00:00.000Z" },
-          "refreshTokenValidUntil": { "type": "string", "format": "date-time", "example": "2024-07-08T12:00:00.000Z" }
-        },
-        "required": ["id", "accessTokenValidUntil", "refreshTokenValidUntil"]
+      "IngredientListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "60f7ad8b1234567890abcdef"
+            },
+            "name": {
+              "type": "string",
+              "example": "Tomato"
+            },
+            "desc": {
+              "type": "string",
+              "example": "Fresh and juicy tomatoes"
+            },
+            "img": {
+              "type": "string",
+              "example": "https://example.com/images/tomato.png"
+            }
+          },
+          "required": [
+            "_id",
+            "name",
+            "img"
+          ]
+        }
       }
     }
   }
