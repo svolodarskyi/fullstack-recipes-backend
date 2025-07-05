@@ -5,8 +5,8 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { recipeSchema } from '../validation/recipe.js';
 import { uploadRecipeImage } from '../middlewares/cloudinaryUpload.js';
 import { createRecipe } from '../controllers/recipes/createRecipe.js';
-import { getRecipes } from '../controllers/recipes/getRecipes.js';
-import { getRecipeById } from '../controllers/recipes/getRecipeById.js';
+import { getOwnRecipesController } from '../controllers/recipes/getRecipes.js';
+//import { getRecipeById } from '../controllers/recipes/getRecipeById.js';
 import { updateRecipe } from '../controllers/recipes/updateRecipe.js';
 import { deleteRecipe } from '../controllers/recipes/deleteRecipe.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
@@ -50,9 +50,10 @@ router.delete(
 );
 
 router.get('/', ctrlWrapper(getAllRecipesController));
+router.get('/own', authenticate, getOwnRecipesController);
 router.get('/:recipeId', ctrlWrapper(getPublicRecipeByIdController));
-router.get('/', authenticate, getRecipes);
-router.get('/:id', authenticate, getRecipeById);
+
+//router.get('/:id', authenticate, getRecipeById);
 
 router.post(
   '/',
