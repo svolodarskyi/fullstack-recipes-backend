@@ -43,6 +43,14 @@ paths:
   /api/recipes/{id}:
     get:
       $ref: '../swagger/paths/recipes/{id}/get.yaml'
+  /api/recipes/favorite:
+    get:
+      $ref: '../swagger/paths/recipes/favorite/get.yaml'
+    post:
+      $ref: '../swagger/paths/recipes/favorite/post.yaml'
+  /api/recipes/favorite/{id}:
+    delete:
+      $ref: '../swagger/paths/recipes/favorite/{id}/delete.yaml'
 components:
   securitySchemes:
     bearerAuth:
