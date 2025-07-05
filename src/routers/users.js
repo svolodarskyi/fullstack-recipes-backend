@@ -1,8 +1,11 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { getCurrentUserInfo } from '../controllers/users/userController.js';
 
 const usersRouter = Router();
+
+usersRouter.get('/', authenticate, ctrlWrapper(getCurrentUserInfo));
 
 usersRouter.get(
   '/profile',
