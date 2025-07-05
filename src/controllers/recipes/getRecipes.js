@@ -1,14 +1,19 @@
-import Recipe from '../../db/models/recipe.js';
+import { getOwnRecipes } from '../../services/recipes/getOwnRecipes.js';
+import { parsePaginationParams } from '../../utils/parsePaginationParams.js';
 
-export const getRecipes = async (req, res, next) => {
+export async function getOwnRecipesController(req, res, next) {
   try {
-    const recipes = await Recipe.find().populate('owner', 'name email');
-    res.json({
+    const userId = req.user._id;
+
+    const { page, perPage } = parsePaginationParams(req.query);
+
+    const favorites = await getOwnRecipes(userId, page, perPage);
+    res.status(200).json({
       status: 200,
-      message: 'Recipes fetched',
-      data: recipes,
+      message: 'Own recipes retrieved successfully',
+      data: favorites,
     });
   } catch (error) {
     next(error);
   }
-};
+}
