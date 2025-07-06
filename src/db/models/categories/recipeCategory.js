@@ -8,6 +8,6 @@ const recipeCategorySchema = new mongoose.Schema({
 });
 
 export const RecipeCategory = mongoose.model(
-  'RecipeCategory',
+  'Category',
   recipeCategorySchema,
 );
