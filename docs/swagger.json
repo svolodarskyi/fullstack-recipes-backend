@@ -581,8 +581,7 @@
                   "category",
                   "instructions",
                   "description",
-                  "ingredients",
-                  "file"
+                  "ingredients"
                 ],
                 "properties": {
                   "userId": {
@@ -663,7 +662,7 @@
                   "file": {
                     "type": "string",
                     "format": "binary",
-                    "description": "Recipe's photo"
+                    "description": "Recipe's photo(optional)"
                   }
                 }
               }

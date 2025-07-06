@@ -19,7 +19,6 @@ requestBody:
           - instructions
           - description
           - ingredients
-          - file
         properties:
           userId:
             type: string
@@ -93,7 +92,7 @@ requestBody:
           file:
             type: string
             format: binary
-            description: Recipe's photo
+            description: Recipe's photo(optional)
 
 responses:
   '201':
