@@ -47,8 +47,8 @@ export async function deleteFavoriteRecipeController(req, res, next) {
   if (!favorites) {
     throw createHttpError(404, 'No favorite recepies');
   }
-  res.status(200).json({
-    status: 200,
+  res.status(204).json({
+    status: 204,
     message: 'Recipe removed from favorites',
     data: favorites,
   });
