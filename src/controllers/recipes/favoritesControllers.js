@@ -42,7 +42,7 @@ export async function addFavoriteRecipeController(req, res, next) {
 export async function deleteFavoriteRecipeController(req, res, next) {
   const userId = req.user._id;
 
-  const { id: recipeId } = req.params;
+  const { recipeId } = req.params;
   const favorites = await deleteFavoriteRecipe(userId, recipeId);
   if (!favorites) {
     throw createHttpError(404, 'No favorite recepies');
