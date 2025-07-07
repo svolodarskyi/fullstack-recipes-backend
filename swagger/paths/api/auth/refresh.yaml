@@ -21,6 +21,10 @@ responses:
           message: Successfully refreshed a session!
           data:
             accessToken: kRvdeii1acPo2gCp06mMjNyDGyrw6pkd+OlOur8r
+            user:
+              _id: '68611f3e59f0398beac4e6ca'
+              name: 'va6'
+              email: 'van7.van7@gmail.com'
 
   400:
     description: Bad request, e.g. missing or malformed refresh token cookie
