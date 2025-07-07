@@ -13,23 +13,16 @@ requestBody:
       schema:
         type: object
         required:
-          - userId
           - title
           - category
           - instructions
           - description
           - ingredients
         properties:
-          userId:
-            type: string
-            description: Recipe ID
-            example: '68419ace9cd45e2f9773af01'
-
           title:
             type: string
             description: The full name of the recipe
             example: 'BreakFest'
-
           category:
             type: string
             description: The full name of the category
@@ -50,7 +43,6 @@ requestBody:
               - Goat
               - Soup
             example: 'Chicken'
-
           ingredients:
             type: array
             description: List of recipe ingredients
@@ -80,7 +72,6 @@ requestBody:
             example:
               - Pork
               - Tinned Tomatos
-
           description:
             type: string
             description: The full name of the description
@@ -89,11 +80,14 @@ requestBody:
             type: string
             description: The full name of the preparation steps
             example: 'Cut and fry the chicken'
-          file:
+          thumb:
             type: string
             format: binary
             description: Recipe's photo(optional)
-
+          calories:
+            type: number
+            description: calories amount
+            example: 450
 responses:
   '201':
     description: Creates a recipe

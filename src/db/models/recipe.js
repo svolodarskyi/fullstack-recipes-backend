@@ -15,21 +15,21 @@ const ingredientInRecipeSchema = new mongoose.Schema({
 
 const recipeSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true, maxlength: 128 },
-    category: { type: String, required: true, maxlength: 64 },
+    title: { type: String, required: true, maxlength: 64 },
+    category: { type: String, required: true },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
     area: { type: String, maxlength: 64 },
-    instructions: { type: String, required: true, maxlength: 4096 },
-    description: { type: String, required: true, maxlength: 1024 },
-    thumb: { type: String },               
+    instructions: { type: String, required: true, maxlength: 1200 },
+    description: { type: String, required: true, maxlength: 200 },
+    thumb: { type: String, },               
     thumbPublicId: { type: String },
-    time: { type: String, required: true, min: 1, max: 1440 }, 
+    time: { type: String, required: true, maxlength: 64 }, 
     ingredients: { type: [ingredientInRecipeSchema], required: true },
-    calories: { type: Number, min: 0, max: 10000 },
+    calories: { type: Number, min: 1, max: 10000 },
   },
   { timestamps: true, versionKey: false }
 );
