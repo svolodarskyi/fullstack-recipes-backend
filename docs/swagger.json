@@ -581,7 +581,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "userId",
                   "title",
                   "category",
                   "instructions",
@@ -589,11 +588,6 @@
                   "ingredients"
                 ],
                 "properties": {
-                  "userId": {
-                    "type": "string",
-                    "description": "Recipe ID",
-                    "example": "68419ace9cd45e2f9773af01"
-                  },
                   "title": {
                     "type": "string",
                     "description": "The full name of the recipe",
@@ -664,10 +658,15 @@
                     "description": "The full name of the preparation steps",
                     "example": "Cut and fry the chicken"
                   },
-                  "file": {
+                  "thumb": {
                     "type": "string",
                     "format": "binary",
                     "description": "Recipe's photo(optional)"
+                  },
+                  "calories": {
+                    "type": "number",
+                    "description": "calories amount",
+                    "example": 450
                   }
                 }
               }
