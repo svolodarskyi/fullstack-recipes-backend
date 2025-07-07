@@ -8,8 +8,19 @@ cloudinary.config({
   api_secret: getEnvVar('CLOUDINARY_API_SECRET'),
 });
 
-const storage = multer.memoryStorage();
-export const upload = multer({ storage });
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.mimetype)) {
+      cb(new Error('Only JPG, PNG, or WEBP images are allowed.'));
+    } else {
+      cb(null, true);
+    }
+  },
+});
 
 export const uploadImage = async (file) => {
   return new Promise((resolve, reject) => {
@@ -35,13 +46,13 @@ export const deleteImage = async (publicId) => {
 };
 
 export const uploadRecipeImage = [
-  upload.single('image'),
+  upload.single('thumb'),
   async (req, res, next) => {
     if (!req.file) return next();
     try {
       const { secure_url, public_id } = await uploadImage(req.file);
-      req.body.image = secure_url;
-      req.body.imagePublicId = public_id;
+      req.body.thumb = secure_url;
+      req.body.thumbPublicId = public_id;
       next();
     } catch (err) {
       next(err);
