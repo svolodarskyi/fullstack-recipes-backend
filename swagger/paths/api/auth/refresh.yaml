@@ -15,7 +15,7 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../../components/schemas/LoginResponseSchema.yaml'
+          $ref: '../../../components/schemas/refreshResponseSchema.yaml'
         example:
           status: 200
           message: Successfully refreshed a session!
