@@ -13,7 +13,7 @@ export const recipeSchema = Joi.object({
   category: Joi.string().required(),
   area: Joi.string().max(64).optional().allow('', null),
   ingredients: Joi.array().items(ingredientSchema).min(2).max(16).required(),
-  instructions: Joi.string().max(4096).required(),
+  instructions: Joi.string().max(1200).required(),
   thumb: Joi.string().uri().optional().allow(null, ''),
   thumbPublicId: Joi.string().optional().allow(null, ''),
 });

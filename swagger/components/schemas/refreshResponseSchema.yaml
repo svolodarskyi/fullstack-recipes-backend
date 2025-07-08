@@ -24,11 +24,13 @@ properties:
             example: 68611f3e59f0398beac4e6ca
           name:
             type: string
+            maxLength: 16
             description: Name of the user
             example: va6
           email:
             type: string
             format: email
+            maxLength: 128
             description: Email address of the user
             example: van7.van7@gmail.com
         required:
