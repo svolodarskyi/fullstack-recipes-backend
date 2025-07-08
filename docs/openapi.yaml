@@ -19,7 +19,6 @@ tags:
     description: Ingridients operations.
 servers:
   - url: https://fullstack-recipes-backend-ssa1.onrender.com
-  - url: https://127.0.0.1:3000
 paths:
   /api/auth/register:
     post:
