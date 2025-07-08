@@ -675,6 +675,12 @@
                     "format": "binary",
                     "description": "Recipe's photo(optional)"
                   },
+                  "time": {
+                    "type": "string",
+                    "maxLength": 64,
+                    "description": "Time required to cook (in minutes)",
+                    "example": "45"
+                  },
                   "calories": {
                     "type": "integer",
                     "minimum": 1,
