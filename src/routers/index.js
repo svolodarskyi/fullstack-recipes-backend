@@ -8,7 +8,7 @@ import recipesRouter from './recipes.js';
 const router = Router();
 
 router.use('/api/auth', authRouter);
-router.use('/api/users', usersRouter);
+router.use('/api/users/current', usersRouter);
 router.use('/api/categories', categoriesRouter);
 router.use('/api/ingredients', ingredientsRouter);
 router.use('/api/recipes', recipesRouter);

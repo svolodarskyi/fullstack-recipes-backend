@@ -18,7 +18,6 @@ tags:
   - name: Ingredients
     description: Ingridients operations.
 servers:
-  - url: https://127.0.0.1:3000
   - url: https://fullstack-recipes-backend-ssa1.onrender.com
 paths:
   /api/auth/register:
@@ -33,7 +32,7 @@ paths:
   /api/auth/logout:
     post:
       $ref: '../swagger/paths/api/auth/logout.yaml'
-  /api/users:
+  /api/users/current:
     get:
       $ref: '../swagger/paths/users/get.yaml'
   /api/categories:

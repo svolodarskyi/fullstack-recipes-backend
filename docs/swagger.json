@@ -11,9 +11,6 @@
   },
   "servers": [
     {
-      "url": "https://127.0.0.1:3000"
-    },
-    {
       "url": "https://fullstack-recipes-backend-ssa1.onrender.com"
     }
   ],
@@ -293,7 +290,7 @@
         }
       }
     },
-    "/api/users": {
+    "/api/users/current": {
       "get": {
         "tags": [
           "Users"
