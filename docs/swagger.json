@@ -58,15 +58,23 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "user@example.com"
+                    "format": "email",
+                    "maxLength": 128,
+                    "example": "user@example.com",
+                    "description": "Must be a valid email address, required, max length 128"
                   },
                   "password": {
                     "type": "string",
-                    "example": "password123"
+                    "minLength": 8,
+                    "maxLength": 128,
+                    "example": "password123",
+                    "description": "Must be between 8 and 128 characters, required"
                   },
                   "name": {
                     "type": "string",
-                    "example": "Full Name"
+                    "maxLength": 16,
+                    "example": "Full Name",
+                    "description": "Required, max length 16"
                   }
                 },
                 "required": [
@@ -624,7 +632,7 @@
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 16,
-                    "description": "List of recipe ingredients",
+                    "description": "List of recipe ingredients (2-16 items)",
                     "items": {
                       "type": "string",
                       "enum": [
@@ -658,7 +666,7 @@
                   "description": {
                     "type": "string",
                     "maxLength": 200,
-                    "description": "Short recipe description",
+                    "description": "Short recipe description (max 200 characters)",
                     "example": "A tasty chicken dish."
                   },
                   "instructions": {
@@ -670,7 +678,7 @@
                   "thumb": {
                     "type": "string",
                     "format": "binary",
-                    "description": "Recipe's photo(optional)"
+                    "description": "Recipe's photo(optional, maxSize 2MB)"
                   },
                   "time": {
                     "type": "string",
