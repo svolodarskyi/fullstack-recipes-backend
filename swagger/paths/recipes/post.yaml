@@ -54,7 +54,7 @@ requestBody:
             type: array
             minItems: 2
             maxItems: 16
-            description: List of recipe ingredients
+            description: List of recipe ingredients (2-16 items)
             items:
               type: string
               enum:
@@ -84,7 +84,7 @@ requestBody:
           description:
             type: string
             maxLength: 200
-            description: Short recipe description
+            description: Short recipe description (max 200 characters)
             example: 'A tasty chicken dish.'
           instructions:
             type: string
@@ -94,7 +94,7 @@ requestBody:
           thumb:
             type: string
             format: binary
-            description: Recipe's photo(optional)
+            description: Recipe's photo(optional, maxSize 2MB)
           time:
             type: string
             maxLength: 64
