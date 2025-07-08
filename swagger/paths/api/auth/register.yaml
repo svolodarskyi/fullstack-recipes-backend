@@ -14,18 +14,15 @@ requestBody:
             format: email
             maxLength: 128
             example: 'user@example.com'
-            description: Must be a valid email address, required, max length 128
           password:
             type: string
             minLength: 8
             maxLength: 128
             example: 'password123'
-            description: Must be between 8 and 128 characters, required
           name:
             type: string
             maxLength: 16
             example: 'Full Name'
-            description: Required, max length 16
         required:
           - email
           - password
