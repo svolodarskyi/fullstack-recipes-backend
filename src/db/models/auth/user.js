@@ -8,6 +8,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      maxlength: 16,
     },
     email: {
       type: String,
@@ -15,10 +16,13 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
+      maxlength: 128,
     },
     password: {
       type: String,
       required: true,
+      minlength: 8,
+      maxlength: 128,
     },
     followers: [
       {

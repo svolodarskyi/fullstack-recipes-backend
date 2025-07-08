@@ -18,11 +18,13 @@ requestBody:
           - instructions
           - description
           - ingredients
+          - time
         properties:
           title:
             type: string
             description: The full name of the recipe
-            example: 'BreakFest'
+            maxLength: 64
+            example: 'Breakfast Salad'
           category:
             type: string
             description: The full name of the category
@@ -43,8 +45,15 @@ requestBody:
               - Goat
               - Soup
             example: 'Chicken'
+          area:
+            type: string
+            description: Cuisine origin
+            maxLength: 64
+            example: 'Italian'
           ingredients:
             type: array
+            minItems: 2
+            maxItems: 16
             description: List of recipe ingredients
             items:
               type: string
@@ -74,20 +83,29 @@ requestBody:
               - Tinned Tomatos
           description:
             type: string
-            description: The full name of the description
+            maxLength: 200
+            description: Short recipe description
             example: 'A tasty chicken dish.'
           instructions:
             type: string
-            description: The full name of the preparation steps
+            maxLength: 1200
+            description: Cooking instructions
             example: 'Cut and fry the chicken'
           thumb:
             type: string
             format: binary
             description: Recipe's photo(optional)
+          time:
+            type: string
+            maxLength: 64
+            description: Time required to cook (in minutes)
+            example: '45'
           calories:
-            type: number
-            description: calories amount
-            example: 450
+            type: integer
+            minimum: 1
+            maximum: 10000
+            description: Optional calorie value
+            example: 320
 responses:
   '201':
     description: Creates a recipe
